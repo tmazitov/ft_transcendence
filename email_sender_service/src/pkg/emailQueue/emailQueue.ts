@@ -2,20 +2,34 @@ import EmailSendRequest from "../emailSendRequest/emailSendRequest";
 import TemplateStorage from "../templateStorage/templateStorage";
 import nodemailer from "nodemailer";
 
+type EmailQueueConfig = {
+    email: string,
+    pass: string,
+    templatesPath: string,
+}
+
 class EmailQueue {
     static templateStorage = new TemplateStorage()
+    
+    private static config:EmailQueueConfig 
+
     private static isSetup = false
     private static queue: Array<EmailSendRequest> = []
     private static isProcessing = false
     private static interval: NodeJS.Timeout | null = null
 
-    static setup(templatesPath:string) {
+    static setup(config:EmailQueueConfig) {
         if (this.isSetup) {
             console.warn("EmailQueue warn : EmailQueue is already setup");
             return
         }
 
-        this.templateStorage.loadFromFile(templatesPath)
+        if (!config.email || !config.pass) {
+            throw new Error("EmailQueue error : SMTP credentials are not defined")
+        }
+
+        this.config = config
+        this.templateStorage.loadFromFile(config.templatesPath)
         this.isSetup = true
     
         this.interval = setInterval(this.processQueue.bind(this), 100)
@@ -55,13 +69,13 @@ class EmailQueue {
             return;
         }
 
-        if (!process.env.SMTP_EMAIL) {
+        if (!this.config.email) {
             console.error("💀 SMTP_EMAIL is not defined");
             this.isProcessing = false;
             return;
         }
 
-        if (!process.env.SMTP_PASS) {
+        if (!this.config.pass) {
             console.error("💀 SMTP_PASS is not defined");
             this.isProcessing = false;
             return;
@@ -76,13 +90,13 @@ class EmailQueue {
                 port: 587,
                 secure: false, // true for 465, false for other ports
                 auth: {
-                    user: process.env.SMTP_EMAIL, // your SMTP username
-                    pass: process.env.SMTP_PASS, // your SMTP password
+                    user: this.config.email, // your SMTP username
+                    pass: this.config.pass, // your SMTP password
                 },
             });
 
             const mailOptions:nodemailer.SendMailOptions = {
-                from: process.env.SMTP_EMAIL,
+                from: this.config.email,
                 to: emailRequest.distEmail,
                 subject: template.subject,
             };
