@@ -1,0 +1,15 @@
+if [ -z "$EMAIL" ]; then
+    echo "Error: EMAIL environment variable is not set."
+    exit 1
+fi
+
+curl -X POST http://localhost:3000/ess/api/rest/email/send \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "'"$EMAIL"'",
+    "template": "example",
+    "data" : {
+        "first_name" : "John",
+        "last_name" : "Snow"
+    }
+  }'

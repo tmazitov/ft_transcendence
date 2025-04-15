@@ -1,0 +1,11 @@
+[
+    {
+        "name" : "example",
+        "subject" : "Example Subject",
+        "path" : "./templates/example.html",
+        "fields" : [
+            "first_name",
+            "last_name"
+        ]
+    }
+]
