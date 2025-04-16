@@ -6,7 +6,6 @@ class ServiceConfig {
 
     constructor() {
         const args = process.argv.splice(2)
-        console.log(args)
         if (args.length != 4) {
             throw new Error("ESS error : invalid arguments <port> <templates-config> <email> <pass>")
         }
