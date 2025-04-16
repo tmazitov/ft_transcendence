@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DB_FILE="database.sqlite3"
+DB_FILE="/app/data/database.sqlite3"
 MIGRATIONS_DIR="./migrations"
 
 # Create the DB file if it doesn't exist

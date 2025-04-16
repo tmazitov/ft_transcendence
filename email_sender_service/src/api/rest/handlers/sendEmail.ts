@@ -4,10 +4,8 @@ import EmailQueue from '../../../pkg/emailQueue/emailQueue';
 
 export async function sendEmail(request: FastifyRequest, reply: FastifyReply) {
 
-  
   // Check if the request is valid
   const emailRequest:EmailSendRequest = new EmailSendRequest(request.body)
-  console.log("body", request.body)
   const dataIsValid = emailRequest.validate()
   if (!dataIsValid) {
     return reply.status(400).send({ error: 'Invalid input data' });

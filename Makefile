@@ -3,7 +3,11 @@
 build :
 	docker-compose build
 
-up : build
-	docker-compose up 
+up :
+	docker-compose up -d 
+
+up-logs :
+	docker-compose up
+
 down :
 	docker-compose down

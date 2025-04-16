@@ -3,7 +3,7 @@ if [ -z "$EMAIL" ]; then
     exit 1
 fi
 
-curl -X POST http://localhost:3000/ess/api/rest/email/send \
+curl -X POST http://localhost:5000/ess/api/rest/email/send \
   -H "Content-Type: application/json" \
   -d '{
     "email": "'"$EMAIL"'",

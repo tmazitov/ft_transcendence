@@ -7,6 +7,9 @@ services:
       - db-data:/app/data
 
   email_sender_service:
+    depends_on:
+      - sqlite-migrator
+      
     container_name: ess
     build: ./email_sender_service
     volumes:

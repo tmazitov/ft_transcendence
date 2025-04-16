@@ -108,9 +108,7 @@ class EmailQueue {
             }
 
             const response = await transporter.sendMail(mailOptions);
-            if (response.accepted.length > 0) {
-                console.log(`Email sent successfully to: ${response.accepted.join(", ")}`);
-            } else {
+            if (response.accepted.length == 0) {
                 console.warn(`Email was not accepted by any recipients.`);
             }
         } catch (error) {

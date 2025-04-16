@@ -3,9 +3,7 @@ import { registerRestRoutes } from './api/rest/rest'
 import { exit } from 'process'
 import EmailQueue from './pkg/emailQueue/emailQueue'
 import loggerMiddleware from './pkg/middlewares/loggerMiddleware'
-import Config from './config'
 import ServiceConfig from './config'
-
 
 const app = Fastify()
 
@@ -22,7 +20,7 @@ async function main() {
     pass: config.smtpPass,
   })
 
-  app.listen({ port: config.port}, (err, address) => {
+  app.listen({ port: config.port, host: config.host}, (err, address) => {
     if (err) {
       app.log.error(err)
       process.exit(1)
