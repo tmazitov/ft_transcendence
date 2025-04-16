@@ -4,7 +4,7 @@
 
 
 ## Project Structure
-- **EES (Email sender service)**: sends email messages to users using templates  (announcements, otp codes and etc.).
+- **ESS (Email sender service)**: sends email messages to users using templates  (announcements, otp codes and etc.).
 - **sqlite3 (Database)**: provides and keeps users data.
 
 ## How to Use
