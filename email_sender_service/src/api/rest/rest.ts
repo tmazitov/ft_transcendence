@@ -1,13 +1,12 @@
 import { FastifyInstance } from 'fastify'
-import { IHandler } from '../../pkg/handler/handler'
-import { sendEmail } from './handlers/sendEmail'
+import { IEndpoint } from '../../pkg/handler/handler'
+import sendEmailHandler from './handlers/sendEmail'
+import exampleHandler from './handlers/exaple'
 
-const routes: IHandler[] = [
-  {
-    method: 'POST',
-    route: '/ess/api/rest/email/send',
-    handler: sendEmail
-  }
+
+const routes: IEndpoint[] = [
+  { method: 'POST',route: '/ess/api/rest/email/send',handler: sendEmailHandler},
+  { method: 'GET', route: '/ess/api/rest/example', handler: exampleHandler,}
 ]
 
 export async function registerRestRoutes(app: FastifyInstance) {

@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import EmailSendRequest from '../../../pkg/emailSendRequest/emailSendRequest';
 import EmailQueue from '../../../pkg/emailQueue/emailQueue';
 
-export async function sendEmail(request: FastifyRequest, reply: FastifyReply) {
+export default async function sendEmail(request: FastifyRequest, reply: FastifyReply) {
 
   // Check if the request is valid
   const emailRequest:EmailSendRequest = new EmailSendRequest(request.body)
