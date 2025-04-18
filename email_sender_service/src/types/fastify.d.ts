@@ -1,9 +1,10 @@
 import 'fastify'
 import DatabaseStorage from '../storage/storage'
+import IStorage from '../models/storage'
 
 declare module 'fastify' {
   interface FastifyInstance {
-    storage: DatabaseStorage
+    storage: IStorage
   }
   interface FastifyRequest {
     server: FastifyInstance // Make sure this is declared

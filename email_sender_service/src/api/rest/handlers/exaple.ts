@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-export default async function sendEmailHandler(request: FastifyRequest, reply: FastifyReply) : Promise<any> {
+export default async function exampleHandler(request: FastifyRequest, reply: FastifyReply) : Promise<any> {
         
     /* Do something with request */
 
