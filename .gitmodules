@@ -1,0 +1,3 @@
+[submodule "frontendy"]
+	path = frontendy
+	url = https://github.com/tmazitov/frontendy.git
