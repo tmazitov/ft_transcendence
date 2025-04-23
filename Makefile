@@ -13,4 +13,4 @@ down :
 	docker-compose down
 
 submodule-update:
-	git submodule update --init --recursive
+	./submodule-update.sh
