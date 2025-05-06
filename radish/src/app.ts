@@ -35,7 +35,11 @@ async function main() {
 
   app.addHook('onRequest', loggerMiddleware)
 
-  app.listen({ port: config.port }, (err, address) => {
+  const host = config.mode === 'production' ? '0.0.0.0' : 'localhost'
+
+  console.log("Starting server in " + config.mode + " mode")
+
+  app.listen({ host, port: config.port }, (err, address) => {
     if (err) {
       app.log.error(err)
       process.exit(1)
@@ -44,7 +48,6 @@ async function main() {
   })
 }
 
-// Бэкап перед завершением
 process.on('SIGINT', () => {
   const state = KeyValueStorage.exportState();
 

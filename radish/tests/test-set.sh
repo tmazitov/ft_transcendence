@@ -20,4 +20,4 @@ fi
 # Send a POST request with the key, value, and optionally expire in the JSON body
 curl -X POST -H "Content-Type: application/json" \
     -d "$JSON_BODY" \
-    "http://localhost:5000/set/$KEY"
+    "http://localhost:5100/set/$KEY"

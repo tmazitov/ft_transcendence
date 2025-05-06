@@ -17,5 +17,6 @@ export async function registerRestRoutes(app: FastifyInstance) {
       url: route.route,
       handler: route.handler
     })
+    console.log(`> ${route.method} ${route.route} --> ${route.handler.name}`)
   }
 }

@@ -6,6 +6,16 @@ services:
     volumes:
       - db-data:/app/data
 
+  radish:
+    container_name: radish
+    build: ./radish
+    environment:
+      - PORT=$RADISH_PORT
+    ports:
+      - "$RADISH_PORT:$RADISH_PORT"
+    volumes:
+      - radish-data:/app/data
+
   email_sender_service:
     depends_on:
       - sqlite-migrator
@@ -25,3 +35,4 @@ services:
 
 volumes:
   db-data:
+  radish-data:

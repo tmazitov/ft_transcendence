@@ -2,7 +2,7 @@ FROM node:22
 
 WORKDIR /app
 
-ARG PORT
+ENV PORT=5100
 
 COPY package*.json ./
 
