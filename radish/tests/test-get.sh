@@ -9,4 +9,4 @@ fi
 KEY=$1
 
 # Send a GET request to retrieve the value for the given key
-curl -X GET "http://localhost:3000/get/$KEY"
+curl -X GET "http://localhost:5000/get/$KEY"

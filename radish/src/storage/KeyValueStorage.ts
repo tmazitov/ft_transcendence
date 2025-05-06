@@ -11,7 +11,14 @@ export default class KeyValueStorage {
     }
 
     public static set(key: string, value: any, expire:number | undefined) : void{
-        const record = new RecordValue(key, value, expire)
+
+        let expireAt = undefined;
+        if (expire !== undefined) {
+            const now = Math.round(new Date().getTime() / 1000)
+            expireAt = now + Math.round(expire);
+        }
+
+        const record = new RecordValue(key, value, expireAt);
         KeyValueStorage.data.set(key, record);
         console.log("🗄️ Adding item to storage:", key);
 
@@ -21,7 +28,7 @@ export default class KeyValueStorage {
     }
 
     public static get(key: string) : any {
-        return KeyValueStorage.data.get(key)?.value;
+        return KeyValueStorage.data.get(key)?._value;
     }
 
     public static delete(key: string) : RecordValue | undefined {
@@ -31,5 +38,24 @@ export default class KeyValueStorage {
             KeyValueStorage.data.delete(key);
         }
         return record;
+    }
+
+    public static importState(state: Map<string, RecordValue>) {
+        state.forEach((record) => {
+            if (!record.expireAt) {
+                KeyValueStorage.data.set(record.key, record);
+                return;
+            }
+
+            const now = Math.round(new Date().getTime() / 1000);
+            const expire = Math.round(record.expireAt - now);
+            if (expire > 0) {
+                this.set(record.key, record._value, expire);
+            }
+        });
+    }
+
+    public static exportState() {
+        return KeyValueStorage.data;
     }
 }

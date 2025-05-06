@@ -12,12 +12,11 @@ export default class DeleteQueue {
 
     public add(value: RecordValue): void {
 
-        if (!value.expire) {
+        if (!value.expireAt) {
             return ;
         }
 
-        const expireAt = new Date();
-        const expireAtSeconds = Math.round(expireAt.getTime() / 1000) + Math.round(value.expire);
+        const expireAtSeconds = value.expireAt;
         if (!this.queue[expireAtSeconds]) {
             this.queue[expireAtSeconds] = [];
         }

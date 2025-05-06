@@ -1,10 +1,10 @@
 export default class RecordValue{
     key: string;
-    value: any;
-    expire: number|undefined = undefined;
-    constructor(key:string, value: any, expire: number|undefined = undefined) {
+    _value: any;
+    expireAt: number|undefined = undefined;
+    constructor(key:string, value: any, expireAt: number|undefined = undefined) {
         this.key = key;
-        this.value = value;
-        this.expire = expire;   
+        this._value = value;
+        this.expireAt = expireAt;   
     }
 }
