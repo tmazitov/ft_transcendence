@@ -1,4 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+import RadishRequest from '../request/RadishRequest';
+import RadishResponse from '../response/RadishResponse';
 
 const colorizedStatus = (statusCode: number) => {
     if (statusCode < 200) {
@@ -15,12 +17,10 @@ const colorizedStatus = (statusCode: number) => {
     return `${statusCode}`; // Default
 }
 
-const loggerMiddleware = async (req: FastifyRequest, res: FastifyReply) => {
-    res.raw.on('finish', () => {
-        console.log(
-            `${req.method}\t${colorizedStatus(res.statusCode)}\t${req.url}`
-        );
-    });
+const loggerMiddleware = async (req: RadishRequest, res: RadishResponse) => {
+    console.log(
+        `${req.type}\t${colorizedStatus(res.status)} --> ${req.raw}`
+    );
 };
 
 export default loggerMiddleware;

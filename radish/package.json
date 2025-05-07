@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/app.ts",
+    "dev": "ts-node src/server.ts",
+    "client" : "ts-node src/examples/client.ts",
     "build": "tsc"
   },
   "keywords": [],
