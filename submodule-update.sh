@@ -24,7 +24,7 @@ git config --file .gitmodules --get-regexp path | while read -r key path; do
     fi
 
     # Получаем изменения и переключаемся
-    git fetch origin
+    # git fetch origin
     git checkout "$branch" && git pull origin "$branch"
 
     # Возвращаемся обратно
