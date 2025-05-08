@@ -20,7 +20,7 @@ export default class RadishRequest {
 
     send(conn: net.Socket) : Promise<string> {
         return new Promise<string>((resolve, reject) => {
-			conn.write(this.toJSON(), (err) => {
+			conn.write(this.toJSON() + '\n', (err) => {
 				if (err) {
 					return reject(err);
 				}

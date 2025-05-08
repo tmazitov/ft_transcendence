@@ -1,2 +1,2 @@
 export MODE="production"
-node ./dist/server.js
+node ./dist/src/server.js

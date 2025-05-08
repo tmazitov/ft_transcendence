@@ -4,8 +4,10 @@
 
 
 ## Project Structure
-- **ESS (Email sender service)**: sends email messages to users using templates  (announcements, otp codes and etc.).
-- **sqlite3 (Database)**: provides and keeps users data.
+- **email_sender_service (ESS)**: sends email messages to users using templates  (announcements, otp codes and etc.).
+- **frontendy (Frontend)**: give an ability to use service via UI.
+- **radish (Cache)**: supportive key-value storage for all services.
+- **db (Database)**: provides and keeps users data.
 
 ## How to Use
 1. Clone repository :
@@ -19,6 +21,9 @@ git clone https://github.com/tmazitov/ft_transcendence.git
 ESS_PORT=5000
 ESS_EMAIL=example@gmail.co
 ESS_PASS=password
+
+# Radish - key-value storage for all services
+RADISH_PORT=5100
 ```
 
 3. Build service and run it :

@@ -1,4 +1,3 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
 import KeyValueStorage from '../../storage/KeyValueStorage'
 import RadishRequest from '../../pkg/request/RadishRequest'
 import RadishResponse from '../../pkg/response/RadishResponse'
@@ -18,8 +17,6 @@ export default function getHandler(request: RadishRequest) : RadishResponse {
     if (!value) {
         return RadishResponse.notFound()
     }
-
-    console.log("🗄️ Getting item from storage:", value);
 
     return RadishResponse.ok({ value })
 }

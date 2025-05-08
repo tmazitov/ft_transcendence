@@ -1,4 +1,4 @@
-import RadishClient from "../client/client";
+import RadishClient from "../../client/client";
 
 const client = new RadishClient({
     host: "localhost",

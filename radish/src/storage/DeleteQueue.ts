@@ -20,7 +20,6 @@ export default class DeleteQueue {
         if (!this.queue[expireAtSeconds]) {
             this.queue[expireAtSeconds] = [];
         }
-        console.log("🕒 Adding item to delete queue with expiration at:", expireAtSeconds);
         this.queue[expireAtSeconds].push(value);
         this.itemsCount++;
 
@@ -37,14 +36,11 @@ export default class DeleteQueue {
                 if (itemsToDelete) {
                     itemsToDelete.forEach((item) => {
                         this.onRemoveHandler(item);
-                        console.log("🗑️ Deleting expired item with key:", item.key);
                         this.itemsCount--;
                     })
 
                     delete this.queue[iterTime];
-                } else if (!itemsToDelete) {
-                    console.log(`${iterTime}\t|\tNothing to delete...`);
-                }
+                } 
                 iterTime++;
             } else {
                 this.stopInterval();

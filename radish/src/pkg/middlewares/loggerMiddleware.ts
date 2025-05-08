@@ -1,4 +1,3 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
 import RadishRequest from '../request/RadishRequest';
 import RadishResponse from '../response/RadishResponse';
 

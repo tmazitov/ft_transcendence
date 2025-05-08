@@ -8,8 +8,11 @@ const config = new Config()
 BackupStorage.load(config.backupFile)
 const server = net.createServer((socket) => {
 	socket.on('data', (data:string) => {
-		const responseData = TCPRouter.handleRequest(data);
-		socket.write(responseData);
+		const messages = data.toString().trim().split('\n');
+		messages.forEach(message => {
+			const responseData = TCPRouter.handleRequest(message);
+			socket.write(responseData);
+		})
 	});
 });
 

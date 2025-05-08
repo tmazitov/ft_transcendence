@@ -20,8 +20,6 @@ export default class KeyValueStorage {
 
         const record = new RecordValue(key, value, expireAt);
         KeyValueStorage.data.set(key, record);
-        console.log("🗄️ Adding item to storage:", key);
-
         if (expire) {
             KeyValueStorage.deleteQueue.add(record);
         }
@@ -33,7 +31,6 @@ export default class KeyValueStorage {
 
     public static delete(key: string) : RecordValue | undefined {
         const record = KeyValueStorage.data.get(key);
-        console.log("🗑️ Deleting item from storage:", key);
         if (record) {
             KeyValueStorage.data.delete(key);
         }

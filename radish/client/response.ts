@@ -1,7 +1,7 @@
 export default class RadishResponse {
-    _status: number;
-    _error: string | undefined;
-    _data: Record<string, any> | undefined;
+    private _status: number;
+    private _error: string | undefined;
+    private _data: Record<string, any> | undefined;
 
     constructor(input: string) {
 
