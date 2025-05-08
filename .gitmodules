@@ -2,3 +2,6 @@
 	path = frontendy
 	url = https://github.com/tmazitov/frontendy.git
 	branch = master
+[submodule "user-management-service"]
+	path = user-management-service
+	url = git@github.com:sabdulki/user-management-service.git
