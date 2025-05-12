@@ -17,6 +17,10 @@ export default class RadishClient {
 	private queue: RequestQueue = new RequestQueue(this);
 
 	constructor(config: RadishClientConfig) {
+		if (!config.host || !config.port) {
+			throw new Error('RadishClient error : host and port are required.');
+		}
+
 		this.config = config;
 		this.conn = this.connect();
 	}
