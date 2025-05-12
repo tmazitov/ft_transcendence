@@ -9,10 +9,12 @@ export default class Config {
     backupFile: string;
     constructor() {
         this.mode = process.env.MODE || "development";
-        this.port = parseInt(process.env.PORT || "3000");
+        this.port = parseInt(process.env.PORT || "5100");
         this.host = this.mode === 'production' ?
             '0.0.0.0' : 'localhost'
         this.backupFile = this.mode === 'production' ? 
             '/app/data/data.json' : './data.json';
+        
+        console.log("backupFile:", this.backupFile);
     }
 }
