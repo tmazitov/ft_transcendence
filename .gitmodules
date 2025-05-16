@@ -5,3 +5,6 @@
 [submodule "user-management-service"]
 	path = user-management-service
 	url = git@github.com:sabdulki/user-management-service.git
+[submodule "mmrs"]
+	path = mmrs
+	url = https://github.com/vlrlmn/mmrs
