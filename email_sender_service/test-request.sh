@@ -7,7 +7,7 @@ curl -X POST http://localhost:5000/ess/api/rest/email/send \
   -H "Content-Type: application/json" \
   -d '{
     "email": "'"$EMAIL"'",
-    "template": "example",
+    "template": "otp",
     "data" : {
         "first_name" : "John",
         "last_name" : "Snow"
