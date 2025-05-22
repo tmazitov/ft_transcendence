@@ -12,6 +12,6 @@
         "name" : "otp",
         "subject": "Your verification code",
         "path" : "./templates/otp-code.html",
-        "file": "otp-code.html"
+        "fields" : ["code"]
     }
 ]

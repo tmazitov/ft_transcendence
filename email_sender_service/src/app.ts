@@ -10,16 +10,16 @@ import fp from "fastify-plugin";
 const app = Fastify()
 
 async function setupDatabase() {
-  const isProduction = process.env.MODE === 'production'
+  // const isProduction = process.env.MODE === 'production'
   
-  const storage = new DatabaseStorage(isProduction ? "/app/data/database.sqlite3" : "./data/database.sqlite3") 
+  // const storage = new DatabaseStorage(isProduction ? "/app/data/database.sqlite3" : "./data/database.sqlite3") 
   
-  app.decorate('storage', storage)  
+  // app.decorate('storage', storage)  
 
-  app.addHook('onClose', (app, done) => {
-    storage.close()
-    done()
-  })
+  // app.addHook('onClose', (app, done) => {
+  //   storage.close()
+  //   done()
+  // })
 }
 
 const databasePlugin = fp(setupDatabase)
