@@ -19,12 +19,22 @@ git clone https://github.com/tmazitov/ft_transcendence.git
 2. Create .env file in the root folder and fill it up following this structure :
 ```bash
 # ESS - Email sender service
-ESS_PORT=5000
+ESS_PORT=5200
 ESS_EMAIL=example@gmail.co
 ESS_PASS=password
 
 # Radish - key-value storage for all services
 RADISH_PORT=5100
+
+#User management service
+UMS_PORT=5000
+JWT_SECRET=super_secure_secret_key
+JWT_SALT=random_salt_string
+JWT_ACCESS_EXPIRES_IN=1d
+JWT_REFRESH_EXPIRES_IN=90d
+GOOGLE_CLIENT_ID=<client_id provided by Google>
+GOOGLE_CLIENT_SECRET=<client_secret provided by Google>
+GOOGLE_CALLBACK_URL=<callback url>
 ```
 
 3. Build service and run it :

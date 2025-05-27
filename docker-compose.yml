@@ -32,6 +32,35 @@ services:
       - .env
     ports:
       - "$ESS_PORT:$ESS_PORT"
+  
+  user-management-service:
+    depends_on:
+      - sqlite-migrator
+      - radish
+      - email_sender_service
+      
+    container_name: ums
+    build: ./user-management-service
+    volumes:
+      - db-data:/app/db
+    environment:
+      - PORT=$UMS_PORT
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_SALT=$JWT_SALT
+      - JWT_ACCESS_EXPIRES_IN=$JWT_ACCESS_EXPIRES_IN
+      - JWT_REFRESH_EXPIRES_IN=$JWT_REFRESH_EXPIRES_IN
+      - GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+      - GOOGLE_CALLBACK_URL=$GOOGLE_CALLBACK_URL
+      - RADISH_HOST=radish
+      - RADISH_PORT=$RADISH_PORT
+      - ESS_HOST=ess
+      - ESS_PORT=$ESS_PORT
+
+    env_file:
+      - .env
+    ports:
+      - "$UMS_PORT:$UMS_PORT"
 
 volumes:
   db-data:
