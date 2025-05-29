@@ -8,3 +8,6 @@
 [submodule "mmrs"]
 	path = mmrs
 	url = https://github.com/vlrlmn/mmrs
+[submodule "game"]
+	path = game
+	url = git@github.com:dabdygali/gameServer.git
