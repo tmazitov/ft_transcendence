@@ -4,29 +4,11 @@ import { exit } from 'process'
 import EmailQueue from './pkg/emailQueue/emailQueue'
 import loggerMiddleware from './pkg/middlewares/loggerMiddleware'
 import ServiceConfig from './config'
-import DatabaseStorage from './storage/storage'
-import fp from "fastify-plugin";
 
 const app = Fastify()
 
-async function setupDatabase() {
-  // const isProduction = process.env.MODE === 'production'
-  
-  // const storage = new DatabaseStorage(isProduction ? "/app/data/database.sqlite3" : "./data/database.sqlite3") 
-  
-  // app.decorate('storage', storage)  
-
-  // app.addHook('onClose', (app, done) => {
-  //   storage.close()
-  //   done()
-  // })
-}
-
-const databasePlugin = fp(setupDatabase)
-
 async function main() {
   const config:ServiceConfig = new ServiceConfig()
-  await app.register(databasePlugin)
   await registerRestRoutes(app)
 
   app.addHook('onRequest', loggerMiddleware)
