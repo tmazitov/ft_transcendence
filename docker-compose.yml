@@ -1,11 +1,5 @@
 version: '3.8'
 services:
-  sqlite-migrator:
-    container_name: database
-    build: ./db
-    volumes:
-      - db-data:/app/data
-
   radish:
     container_name: radish
     build: ./radish
@@ -17,13 +11,8 @@ services:
       - radish-data:/app/data
 
   email_sender_service:
-    depends_on:
-      - sqlite-migrator
-      
     container_name: ess
     build: ./email_sender_service
-    volumes:
-      - db-data:/app/data
     environment:
       - ESS_PORT=$ESS_PORT
       - ESS_PASS=$ESS_PASS
@@ -35,14 +24,11 @@ services:
   
   user-management-service:
     depends_on:
-      - sqlite-migrator
       - radish
       - email_sender_service
       
     container_name: ums
     build: ./user-management-service
-    volumes:
-      - db-data:/app/db
     environment:
       - PORT=$UMS_PORT
       - JWT_SECRET=$JWT_SECRET
@@ -63,5 +49,4 @@ services:
       - "$UMS_PORT:$UMS_PORT"
 
 volumes:
-  db-data:
   radish-data:

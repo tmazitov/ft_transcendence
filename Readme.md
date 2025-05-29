@@ -21,7 +21,7 @@ git clone https://github.com/tmazitov/ft_transcendence.git
 # ESS - Email sender service
 ESS_PORT=5200
 ESS_EMAIL=example@gmail.co
-ESS_PASS=password
+ESS_PASS=password # visit https://myaccount.google.com/apppasswords
 
 # Radish - key-value storage for all services
 RADISH_PORT=5100
