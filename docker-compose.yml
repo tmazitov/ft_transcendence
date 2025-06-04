@@ -26,7 +26,6 @@ services:
     depends_on:
       - radish
       - email_sender_service
-      
     container_name: ums
     build: ./user-management-service
     environment:
@@ -42,11 +41,27 @@ services:
       - RADISH_PORT=$RADISH_PORT
       - ESS_HOST=ess
       - ESS_PORT=$ESS_PORT
-
     env_file:
       - .env
     ports:
       - "$UMS_PORT:$UMS_PORT"
+
+  game-service:
+    depends_on:
+      - radish
+      - user-management-service
+    container_name: game
+    build: ./game
+    environment:
+      - PORT=$GS_PORT
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_SALT=$JWT_SALT
+      - RADISH_HOST=radish
+      - RADISH_PORT=$RADISH_PORT
+    env_file:
+      - .env
+    ports:
+      - "$GS_PORT:$GS_PORT"
 
 volumes:
   radish-data:
