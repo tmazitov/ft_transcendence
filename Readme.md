@@ -18,6 +18,9 @@ git clone https://github.com/tmazitov/ft_transcendence.git
 
 2. Create .env file in the root folder and fill it up following this structure :
 ```bash
+# Domain
+DOMAIN=localhost
+
 # ESS - Email sender service
 ESS_PORT=5200
 ESS_EMAIL=example@gmail.co
@@ -35,6 +38,16 @@ JWT_REFRESH_EXPIRES_IN=90d
 GOOGLE_CLIENT_ID=<client_id provided by Google>
 GOOGLE_CLIENT_SECRET=<client_secret provided by Google>
 GOOGLE_CALLBACK_URL=<callback url>
+
+#Matchmaking and rating service
+MMRS_PORT=5001
+
+#Game service
+GS_PORT=5002
+
+#Frontendy
+FR_PORT=3000
+GOOGLE_OAUTH_REDIRECT_URI=http://localhost:3000/oauth-callback
 ```
 
 3. Build service and run it :
