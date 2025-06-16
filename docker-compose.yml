@@ -42,6 +42,9 @@ services:
       - ESS_PORT=$ESS_PORT
     env_file:
       - .env
+    volumes:
+      - db-data:/app/db
+      - avatars:/app/public/avatars
     ports:
       - "$UMS_PORT:$UMS_PORT"
 
@@ -79,3 +82,5 @@ services:
 
 volumes:
   radish-data:
+  db-data:
+  avatars:
