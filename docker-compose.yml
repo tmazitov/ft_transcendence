@@ -61,6 +61,8 @@ services:
       - JWT_SALT=$JWT_SALT
       - RADISH_HOST=radish
       - RADISH_PORT=$RADISH_PORT
+      - POINTS_TO_WIN=$POINTS_TO_WIN
+      - MMRS_ADDR=mmrs:${MMRS_PORT}/mmrs
     env_file:
       - .env
     ports:

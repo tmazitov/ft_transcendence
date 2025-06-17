@@ -44,6 +44,7 @@ MMRS_PORT=5001
 
 #Game service
 GS_PORT=5002
+POINTS_TO_WIN=10
 
 #Frontendy
 FR_PORT=3000
