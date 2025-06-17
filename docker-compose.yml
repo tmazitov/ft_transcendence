@@ -80,6 +80,25 @@ services:
     ports:
       - "$FR_PORT:$FR_PORT"
 
+  mmrs:
+    container_name: mmrs
+    build: ./mmrs
+    environment:
+      PORT: ${MMRS_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_SALT: ${JWT_SALT}
+      JWT_ACCESS_EXPIRES_IN: ${JWT_ACCESS_EXPIRES_IN}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
+      RADISH_HOST: radish
+      RADISH_PORT: ${RADISH_PORT}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+      UMS_ADDR: "ums:${UMS_PORT}/auth"
+      GAME_ADDR: "game:${GS_PORT}/game"
+    env_file:
+      - .env
+    ports:
+      - "$MMRS_PORT:$MMRS_PORT"
+
 volumes:
   radish-data:
   db-data:
