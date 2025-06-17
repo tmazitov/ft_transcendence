@@ -13,5 +13,15 @@
         "subject": "Your verification code",
         "path" : "./templates/otp-code.html",
         "fields" : ["code"]
+    },
+    {
+        "name" : "invitation",
+        "subject": "Invitation from ft_transcendence",
+        "path" : "./templates/invitation.html",
+        "fields" : [
+            "nickname",
+            "senderNickname",
+            "websiteUrl"
+        ]
     }
 ]
