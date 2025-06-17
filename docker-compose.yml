@@ -99,8 +99,11 @@ services:
       - .env
     ports:
       - "$MMRS_PORT:$MMRS_PORT"
+    volumes:
+      - mmrs-db-data:/app/db
 
 volumes:
   radish-data:
   db-data:
   avatars:
+  mmrs-db-data:
