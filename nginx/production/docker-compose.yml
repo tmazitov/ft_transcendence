@@ -95,9 +95,9 @@ services:
       PORT: ${FR_PORT}
       GOOGLE_OAUTH_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_OAUTH_REDIRECT_URI: ${GOOGLE_OAUTH_REDIRECT_URI}
-      UMS_ADDR: "${DOMAIN}:${UMS_PORT}/auth"
-      MMRS_ADDR: "${DOMAIN}:${MMRS_PORT}/mmrs"
-      GAME_ADDR: "${DOMAIN}:${GS_PORT}/game"
+      UMS_ADDR: "${DOMAIN}:443/auth"
+      MMRS_ADDR: "${DOMAIN}:443/mmrs"
+      GAME_ADDR: "${DOMAIN}:443/game"
     env_file:
       - .env.production
     expose:
