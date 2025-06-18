@@ -1,0 +1,131 @@
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    environment:
+      - DOMAIN=$DOMAIN
+      - FR_PORT=$FR_PORT
+      - GS_PORT=$GS_PORT
+      - MMRS_PORT=$MMRS_PORT
+      - UMS_PORT=$UMS_PORT
+    env_file:
+      - .env.production
+    depends_on:
+      - frontendy
+      - game-service
+      - mmrs
+      - user-management-service
+    restart: on-failure
+    ports:
+      - "443:443"
+
+  radish:
+    container_name: radish
+    build: ./radish
+    environment:
+      - PORT=$RADISH_PORT
+    expose:
+      - "$RADISH_PORT:$RADISH_PORT"
+    volumes:
+      - radish-data:/app/data
+
+  email_sender_service:
+    container_name: ess
+    build: ./email_sender_service
+    environment:
+      - ESS_PORT=$ESS_PORT
+      - ESS_PASS=$ESS_PASS
+      - ESS_EMAIL=$ESS_EMAIL
+    env_file:
+      - .env.production
+    expose:
+      - "$ESS_PORT"
+  
+  user-management-service:
+    depends_on:
+      - radish
+      - email_sender_service
+    container_name: ums
+    build: ./user-management-service
+    environment:
+      - PORT=$UMS_PORT
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_SALT=$JWT_SALT
+      - JWT_ACCESS_EXPIRES_IN=$JWT_ACCESS_EXPIRES_IN
+      - JWT_REFRESH_EXPIRES_IN=$JWT_REFRESH_EXPIRES_IN
+      - GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+      - GOOGLE_CALLBACK_URL=$GOOGLE_CALLBACK_URL
+      - RADISH_HOST=radish
+      - RADISH_PORT=$RADISH_PORT
+      - ESS_HOST=ess
+      - ESS_PORT=$ESS_PORT
+      - WEBSITE_URL=$WEBSITE_URL
+    env_file:
+      - .env.production
+    volumes:
+      - db-data:/app/db
+      - avatars:/app/public/avatars
+    expose:
+      - "$UMS_PORT"
+
+  game-service:
+    depends_on:
+      - radish
+      - user-management-service
+    container_name: game
+    build: ./game
+    environment:
+      - PORT=$GS_PORT
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_SALT=$JWT_SALT
+      - RADISH_HOST=radish
+      - RADISH_PORT=$RADISH_PORT
+      - POINTS_TO_WIN=$POINTS_TO_WIN
+      - MMRS_ADDR=mmrs:${MMRS_PORT}/mmrs
+    env_file:
+      - .env.production
+    expose:
+      - "$GS_PORT"
+
+  frontendy:
+    container_name: frontendy
+    build: ./frontendy
+    environment:
+      PORT: ${FR_PORT}
+      GOOGLE_OAUTH_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_OAUTH_REDIRECT_URI: ${GOOGLE_OAUTH_REDIRECT_URI}
+      UMS_ADDR: "${DOMAIN}:${UMS_PORT}/auth"
+      MMRS_ADDR: "${DOMAIN}:${MMRS_PORT}/mmrs"
+      GAME_ADDR: "${DOMAIN}:${GS_PORT}/game"
+    env_file:
+      - .env.production
+    expose:
+      - "$FR_PORT"
+
+  mmrs:
+    container_name: mmrs
+    build: ./mmrs
+    environment:
+      PORT: ${MMRS_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_SALT: ${JWT_SALT}
+      JWT_ACCESS_EXPIRES_IN: ${JWT_ACCESS_EXPIRES_IN}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
+      RADISH_HOST: radish
+      RADISH_PORT: ${RADISH_PORT}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+      UMS_ADDR: "ums:${UMS_PORT}/auth"
+      GAME_ADDR: "game:${GS_PORT}/game"
+    env_file:
+      - .env.production
+    expose:
+      - "$MMRS_PORT"
+    volumes:
+      - mmrs-db-data:/app/db
+
+volumes:
+  radish-data:
+  db-data:
+  avatars:
+  mmrs-db-data:

@@ -1,5 +1,10 @@
 # Makefile for Docker Compose
 
+prod:
+	docker-compose \
+		--env-file nginx/production/.env.production \
+		-f nginx/production/docker-compose.yml \
+		up --build
 build :
 	docker-compose build
 
@@ -14,3 +19,5 @@ down :
 
 submodule-update:
 	./submodule-update.sh
+
+.PHONY: prod build up up-logs down submodule-update
