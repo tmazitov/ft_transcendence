@@ -82,6 +82,7 @@ services:
       UMS_ADDR: "${DOMAIN}:${UMS_PORT}/auth"
       MMRS_ADDR: "${DOMAIN}:${MMRS_PORT}/mmrs"
       GAME_ADDR: "${DOMAIN}:${GS_PORT}/game"
+      SECURE: ${SECURE}
     env_file:
       - .env
     ports:
