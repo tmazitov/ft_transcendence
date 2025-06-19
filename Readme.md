@@ -20,6 +20,7 @@ git clone https://github.com/tmazitov/ft_transcendence.git
 ```bash
 # Domain
 DOMAIN=localhost
+SECURE=false
 
 # ESS - Email sender service
 ESS_PORT=5200
