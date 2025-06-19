@@ -1,6 +1,7 @@
 services:
   radish:
     container_name: radish
+    init: true
     build: ./radish
     environment:
       - PORT=$RADISH_PORT
@@ -11,6 +12,7 @@ services:
 
   email_sender_service:
     container_name: ess
+    init: true
     build: ./email_sender_service
     environment:
       - ESS_PORT=$ESS_PORT
@@ -26,6 +28,7 @@ services:
       - radish
       - email_sender_service
     container_name: ums
+    init: true
     build: ./user-management-service
     environment:
       - PORT=$UMS_PORT
@@ -54,6 +57,7 @@ services:
       - radish
       - user-management-service
     container_name: game
+    init: true
     build: ./game
     environment:
       - PORT=$GS_PORT
@@ -70,6 +74,7 @@ services:
 
   frontendy:
     container_name: frontendy
+    init: true
     build: ./frontendy
     environment:
       PORT: ${FR_PORT}
@@ -85,6 +90,7 @@ services:
 
   mmrs:
     container_name: mmrs
+    init: true
     build: ./mmrs
     environment:
       PORT: ${MMRS_PORT}
