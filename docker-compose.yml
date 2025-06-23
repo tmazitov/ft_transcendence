@@ -19,6 +19,8 @@ services:
     restart: on-failure
     ports:
       - "443:443"
+    networks:
+      - ft_transcendence-network
 
   radish:
     container_name: radish
@@ -27,9 +29,9 @@ services:
     environment:
       - PORT=$RADISH_PORT
     expose:
-      - "$RADISH_PORT:$RADISH_PORT"
-    volumes:
-      - radish-data:/app/data
+      - "$RADISH_PORT"
+    networks:
+      - ft_transcendence-network
 
   email_sender_service:
     container_name: ess
@@ -43,6 +45,8 @@ services:
       - .env.production
     expose:
       - "$ESS_PORT"
+    networks:
+      - ft_transcendence-network
   
   user-management-service:
     depends_on:
@@ -71,6 +75,8 @@ services:
       - avatars:/app/public/avatars
     expose:
       - "$UMS_PORT"
+    networks:
+      - ft_transcendence-network
 
   game-service:
     depends_on:
@@ -91,6 +97,8 @@ services:
       - .env.production
     expose:
       - "$GS_PORT"
+    networks:
+      - ft_transcendence-network
 
   frontendy:
     container_name: frontendy
@@ -108,6 +116,8 @@ services:
       - .env.production
     expose:
       - "$FR_PORT"
+    networks:
+      - ft_transcendence-network
 
   mmrs:
     container_name: mmrs
@@ -130,9 +140,15 @@ services:
       - "$MMRS_PORT"
     volumes:
       - mmrs-db-data:/app/db
+    networks:
+      - ft_transcendence-network
 
 volumes:
-  radish-data:
   db-data:
   avatars:
   mmrs-db-data:
+
+networks:
+  ft_transcendence-network:
+    name: ft_transcendence-network
+    driver: bridge
