@@ -42,22 +42,30 @@ dev_compose = docker-compose \
 dev:
 	@$(dev_compose) up --build
 
-dev-down:
+dev-stop:
 	@$(dev_compose) down
 
-dev_fclean:
+dev-clean:
+	@$(compose) down
+	docker image prune -af
+
+dev-fclean:
 	@$(dev_compose) down -v --remove-orphans
 	docker image prune -af
 	docker volume prune -f
+	docker network prune -f
+
+dev-re: dev-clean
+	@$(MAKE) dev
 
 nuke:
-	@docker stop $(docker ps -q)
-	@docker rm -f $(docker ps -aq)
-	@docker rmi -f $(docker images -q)
-	@docker volume rm -f $(docker volume ls -q)
-	@docker network prune -f
+	@if [ -n "$$(docker ps -q)" ]; then docker stop $$(docker ps -q); fi
+	@if [ -n "$$(docker ps -aq)" ]; then docker rm $$(docker ps -aq); fi
+	@if [ -n "$$(docker images -q)" ]; then docker rmi -f $$(docker images -q); fi
+	@if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi
+	@docker system prune --all --force --volumes
 
 submodule-update:
 	./submodule-update.sh
 
-.PHONY: dev dev-down dev_fclean all build up up-logs logs clean fclean re submodule-update nuke 
+.PHONY: all build up up-logs logs clean fclean re dev dev-stop dev-clean dev_fclean dev-re submodule-update nuke 
