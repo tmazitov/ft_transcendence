@@ -14,4 +14,6 @@ RUN npm run build
 
 EXPOSE ${PORT}
 
+RUN chmod +x ./docker-run.sh
+
 CMD ["sh", "./docker-run.sh"]
