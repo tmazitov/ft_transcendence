@@ -33,10 +33,10 @@ main()
 async function gracefulShutdown(signal: string) {
   try {
     EmailQueue.shutdown()
-    console.log('EmailQueue shutdown complete.')
+    // console.log('EmailQueue shutdown complete.')
     exit(0)
   } catch (error) {
-    console.error('Error during shutdown:', error)
+    // console.error('Error during shutdown:', error)
     exit(1)
   }
 }
