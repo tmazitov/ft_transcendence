@@ -1,32 +1,11 @@
 services:
-  nginx:
-    container_name: nginx
-    init: true
-    build: ./nginx
-    environment:
-      - DOMAIN=$DOMAIN
-      - FR_PORT=$FR_PORT
-      - GS_PORT=$GS_PORT
-      - MMRS_PORT=$MMRS_PORT
-      - UMS_PORT=$UMS_PORT
-    env_file:
-      - .env.production
-    depends_on:
-      - frontendy
-      - game-service
-      - mmrs
-      - user-management-service
-    restart: on-failure
-    ports:
-      - "443:443"
-
   radish:
     container_name: radish
     init: true
     build: ./radish
     environment:
       - PORT=$RADISH_PORT
-    expose:
+    ports:
       - "$RADISH_PORT:$RADISH_PORT"
     volumes:
       - radish-data:/app/data
@@ -40,9 +19,9 @@ services:
       - ESS_PASS=$ESS_PASS
       - ESS_EMAIL=$ESS_EMAIL
     env_file:
-      - .env.production
-    expose:
-      - "$ESS_PORT"
+      - .env
+    ports:
+      - "$ESS_PORT:$ESS_PORT"
   
   user-management-service:
     depends_on:
@@ -65,12 +44,12 @@ services:
       - ESS_PORT=$ESS_PORT
       - WEBSITE_URL=$WEBSITE_URL
     env_file:
-      - .env.production
+      - .env
     volumes:
       - db-data:/app/db
       - avatars:/app/public/avatars
-    expose:
-      - "$UMS_PORT"
+    ports:
+      - "$UMS_PORT:$UMS_PORT"
 
   game-service:
     depends_on:
@@ -88,9 +67,9 @@ services:
       - POINTS_TO_WIN=$POINTS_TO_WIN
       - MMRS_ADDR=mmrs:${MMRS_PORT}/mmrs
     env_file:
-      - .env.production
-    expose:
-      - "$GS_PORT"
+      - .env
+    ports:
+      - "$GS_PORT:$GS_PORT"
 
   frontendy:
     container_name: frontendy
@@ -98,16 +77,16 @@ services:
     build: ./frontendy
     environment:
       PORT: ${FR_PORT}
-      SECURE: ${SECURE}
       GOOGLE_OAUTH_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_OAUTH_REDIRECT_URI: ${GOOGLE_OAUTH_REDIRECT_URI}
-      UMS_ADDR: "${DOMAIN}:443/auth"
-      MMRS_ADDR: "${DOMAIN}:443/mmrs"
-      GAME_ADDR: "${DOMAIN}:443/game"
+      UMS_ADDR: "${DOMAIN}:${UMS_PORT}/auth"
+      MMRS_ADDR: "${DOMAIN}:${MMRS_PORT}/mmrs"
+      GAME_ADDR: "${DOMAIN}:${GS_PORT}/game"
+      SECURE: ${SECURE}
     env_file:
-      - .env.production
-    expose:
-      - "$FR_PORT"
+      - .env
+    ports:
+      - "$FR_PORT:$FR_PORT"
 
   mmrs:
     container_name: mmrs
@@ -125,9 +104,9 @@ services:
       UMS_ADDR: "ums:${UMS_PORT}/auth"
       GAME_ADDR: "game:${GS_PORT}/game"
     env_file:
-      - .env.production
-    expose:
-      - "$MMRS_PORT"
+      - .env
+    ports:
+      - "$MMRS_PORT:$MMRS_PORT"
     volumes:
       - mmrs-db-data:/app/db
 

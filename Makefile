@@ -1,23 +1,63 @@
 # Makefile for Docker Compose
 
-prod:
-	docker-compose \
-		--env-file nginx/production/.env.production \
-		-f nginx/production/docker-compose.yml \
-		up --build
-build :
-	docker-compose build
+compose = docker-compose \
+	--env-file .env.production \
+	-f docker-compose.yml
 
-up :
-	docker-compose up -d 
+all:
+	@$(compose) up --build -d
 
-up-logs :
-	docker-compose up
+build:
+	@$(compose) build
 
-down :
-	docker-compose down
+up:
+	@$(compose) up -d 
+
+up-logs:
+	@$(compose) up
+
+logs:
+	@$(compose) logs -f
+
+stop:
+	@$(compose) stop
+
+clean:
+	@$(compose) down
+	docker image prune -af
+
+fclean:
+	@$(compose)  down -v --remove-orphans
+	docker image prune -af
+	docker volume prune -f
+	docker network prune -f
+
+re: clean
+	@$(MAKE) all
+
+dev_compose = docker-compose \
+	--env-file development/.env \
+	-f development/docker-compose.yml
+
+dev:
+	@$(dev_compose) up --build
+
+dev-down:
+	@$(dev_compose) down
+
+dev_fclean:
+	@$(dev_compose) down -v --remove-orphans
+	docker image prune -af
+	docker volume prune -f
+
+nuke:
+	@docker stop $(docker ps -q)
+	@docker rm -f $(docker ps -aq)
+	@docker rmi -f $(docker images -q)
+	@docker volume rm -f $(docker volume ls -q)
+	@docker network prune -f
 
 submodule-update:
 	./submodule-update.sh
 
-.PHONY: prod build up up-logs down submodule-update
+.PHONY: dev dev-down dev_fclean all build up up-logs logs clean fclean re submodule-update nuke 
