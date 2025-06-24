@@ -1,7 +1,7 @@
 # Makefile for Docker Compose
 project_name = ft_transcendence
 compose = docker-compose \
-	--env-file .env.production \
+	--env-file .env \
 	-f docker-compose.yml
 
 all:

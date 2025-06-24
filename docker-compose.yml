@@ -10,7 +10,7 @@ services:
       - MMRS_PORT=$MMRS_PORT
       - UMS_PORT=$UMS_PORT
     env_file:
-      - .env.production
+      - .env
     depends_on:
       - frontendy
       - game-service
@@ -29,7 +29,7 @@ services:
     environment:
       - PORT=$RADISH_PORT
     env_file:
-      - .env.production
+      - .env
     expose:
       - "$RADISH_PORT"
     networks:
@@ -44,7 +44,7 @@ services:
       - ESS_PASS=$ESS_PASS
       - ESS_EMAIL=$ESS_EMAIL
     env_file:
-      - .env.production
+      - .env
     expose:
       - "$ESS_PORT"
     networks:
@@ -71,7 +71,7 @@ services:
       - ESS_PORT=$ESS_PORT
       - WEBSITE_URL=$WEBSITE_URL
     env_file:
-      - .env.production
+      - .env
     volumes:
       - db-data:/app/db
       - avatars:/app/public/avatars
@@ -96,7 +96,7 @@ services:
       - POINTS_TO_WIN=$POINTS_TO_WIN
       - MMRS_ADDR=mmrs:${MMRS_PORT}/mmrs
     env_file:
-      - .env.production
+      - .env
     expose:
       - "$GS_PORT"
     networks:
@@ -115,7 +115,7 @@ services:
       MMRS_ADDR: "${DOMAIN}:443/mmrs"
       GAME_ADDR: "${DOMAIN}:443/game"
     env_file:
-      - .env.production
+      - .env
     expose:
       - "$FR_PORT"
     networks:
@@ -137,7 +137,7 @@ services:
       UMS_ADDR: "ums:${UMS_PORT}/auth"
       GAME_ADDR: "game:${GS_PORT}/game"
     env_file:
-      - .env.production
+      - .env
     expose:
       - "$MMRS_PORT"
     volumes:
