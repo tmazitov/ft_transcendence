@@ -1,4 +1,4 @@
 .env
-.env.production
+.env
 data.json
 database.db

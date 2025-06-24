@@ -1,8 +1,6 @@
 # Makefile for Docker Compose
 project_name = ft_transcendence
-compose = docker-compose \
-	--env-file .env.production \
-	-f docker-compose.yml
+compose = docker compose --env-file ./.env -f compose.yaml
 
 all:
 	@$(compose) up --build -d
@@ -20,13 +18,14 @@ logs:
 	@$(compose) logs -f
 
 stop:
+	@$(compose) stop
 	@$(compose) down
 
-clean:
-	@$(compose) down
+clean: stop
 	@docker image ls --filter=reference='$(project_name)-*' -q | grep . | xargs docker rmi -f
 
 fclean:
+	@$(compose) stop
 	@$(compose) down -v --remove-orphans --rmi local
 	@docker volume prune -f
 	@docker network prune -f
@@ -34,9 +33,9 @@ fclean:
 re: clean
 	@$(MAKE) all
 
-dev_compose = docker-compose \
+dev_compose = docker compose \
 	--env-file development/.env \
-	-f development/docker-compose.yml
+	-f development/docker compose.yml
 
 dev:
 	@$(dev_compose) up --build

@@ -10,7 +10,7 @@ services:
       - MMRS_PORT=$MMRS_PORT
       - UMS_PORT=$UMS_PORT
     env_file:
-      - .env.production
+      - .env
     depends_on:
       - frontendy
       - game-service
@@ -28,8 +28,10 @@ services:
     build: ./radish
     environment:
       - PORT=$RADISH_PORT
+    env_file:
+      - .env
     expose:
-      - "$RADISH_PORT"
+      - "${RADISH_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -42,9 +44,9 @@ services:
       - ESS_PASS=$ESS_PASS
       - ESS_EMAIL=$ESS_EMAIL
     env_file:
-      - .env.production
+      - .env
     expose:
-      - "$ESS_PORT"
+      - "${ESS_PORT}"
     networks:
       - ft_transcendence-network
   
@@ -69,12 +71,12 @@ services:
       - ESS_PORT=$ESS_PORT
       - WEBSITE_URL=$WEBSITE_URL
     env_file:
-      - .env.production
+      - .env
     volumes:
       - db-data:/app/db
       - avatars:/app/public/avatars
     expose:
-      - "$UMS_PORT"
+      - "${UMS_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -94,9 +96,9 @@ services:
       - POINTS_TO_WIN=$POINTS_TO_WIN
       - MMRS_ADDR=mmrs:${MMRS_PORT}/mmrs
     env_file:
-      - .env.production
+      - .env
     expose:
-      - "$GS_PORT"
+      - "${GS_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -113,9 +115,9 @@ services:
       MMRS_ADDR: "${DOMAIN}:443/mmrs"
       GAME_ADDR: "${DOMAIN}:443/game"
     env_file:
-      - .env.production
+      - .env
     expose:
-      - "$FR_PORT"
+      - "${FR_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -135,9 +137,9 @@ services:
       UMS_ADDR: "ums:${UMS_PORT}/auth"
       GAME_ADDR: "game:${GS_PORT}/game"
     env_file:
-      - .env.production
+      - .env
     expose:
-      - "$MMRS_PORT"
+      - "${MMRS_PORT}"
     volumes:
       - mmrs-db-data:/app/db
     networks:
