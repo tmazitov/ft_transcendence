@@ -28,6 +28,8 @@ services:
     build: ./radish
     environment:
       - PORT=$RADISH_PORT
+    env_file:
+      - .env.production
     expose:
       - "$RADISH_PORT"
     networks:
