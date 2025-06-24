@@ -18,13 +18,14 @@ logs:
 	@$(compose) logs -f
 
 stop:
-	@$(compose) down --remove-orphans
-
-clean:
+	@$(compose) stop
 	@$(compose) down
+
+clean: stop
 	@docker image ls --filter=reference='$(project_name)-*' -q | grep . | xargs docker rmi -f
 
 fclean:
+	@$(compose) stop
 	@$(compose) down -v --remove-orphans --rmi local
 	@docker volume prune -f
 	@docker network prune -f

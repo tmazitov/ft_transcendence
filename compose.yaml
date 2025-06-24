@@ -31,7 +31,7 @@ services:
     env_file:
       - .env
     expose:
-      - "$RADISH_PORT"
+      - "${RADISH_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -46,7 +46,7 @@ services:
     env_file:
       - .env
     expose:
-      - "$ESS_PORT"
+      - "${ESS_PORT}"
     networks:
       - ft_transcendence-network
   
@@ -76,7 +76,7 @@ services:
       - db-data:/app/db
       - avatars:/app/public/avatars
     expose:
-      - "$UMS_PORT"
+      - "${UMS_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -98,7 +98,7 @@ services:
     env_file:
       - .env
     expose:
-      - "$GS_PORT"
+      - "${GS_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -117,7 +117,7 @@ services:
     env_file:
       - .env
     expose:
-      - "$FR_PORT"
+      - "${FR_PORT}"
     networks:
       - ft_transcendence-network
 
@@ -139,7 +139,7 @@ services:
     env_file:
       - .env
     expose:
-      - "$MMRS_PORT"
+      - "${MMRS_PORT}"
     volumes:
       - mmrs-db-data:/app/db
     networks:
